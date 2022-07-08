@@ -51,27 +51,29 @@ module.exports = app;
 // const port = 3000
 // app.use(express.json());
 
-const user = 'newuser'
-const host = 'localhost'
-const database = 'plantsdb'
-const password = 'pa5w0rt'
-const pg_port = '5432'
+// const user = 'newuser'
+// const host = 'localhost'
+// const database = 'plantsdb'
+// const password = 'pa5w0rt'
+// const pg_port = '5432'
 
-const sequelize = new Sequelize(database, user, password, {
-  host,
-  pg_port,
-  dialect: 'postgres',
-  logging: false
-})
+// const sequelize = new Sequelize(database, user, password, {
+//   host,
+//   pg_port,
+//   dialect: 'postgres',
+//   logging: false
+// })
 
-sequelize
-.authenticate()
-.then(() => {
-console.log('Connection has been established successfully.');
-})
-.catch(err => {
-console.error('Unable to connect to the database:', err);
-});
+// sequelize
+// .authenticate()
+// .then(() => {
+// console.log('Connection has been established successfully.');
+// })
+// .catch(err => {
+// console.error('Unable to connect to the database:', err);
+// });
+
+
 // const User = sequelize.define('user', {
 // firstName: {
 // type: Sequelize.STRING,
