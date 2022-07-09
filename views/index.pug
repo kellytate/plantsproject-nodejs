@@ -25,7 +25,16 @@ block content
                     td= plant.nickname 
                     td= plant.datelastwatered
                     td= plant.datetowater 
+              td
+              td 
+              form(action="/update", method="POST")
+                button(type="submit").btn.btn-primary Update
           else
+
+            //- form(action="/seed", method="POST")
+            //-     button(type="submit").btn.btn-primary Seed Data
+            //- br
+            //- br
             tr 
               td 
                 | No plants found
