@@ -11,7 +11,8 @@ const { pgconn } = require('../db/config')
 
 router.get('/', function(req, res) {
   // we first check if the 'contacts' table exists
-  pgconn.query("SELECT EXISTS (SELECT FROM pg_tables WHERE tablename = 'plants')", function(err,results) {
+  // pgconn.query("SELECT EXISTS (SELECT FROM pg_tables WHERE tablename = 'plants')", function(err,results) {
+    pgconn.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE tabl_name = 'plants')", function(err,results) {
     if (err) {
       console.log(err);
       res.render('index', { error: 'Database connection failure! '+err.stack, plants: null, title: 'Plant List' });
