@@ -53,10 +53,6 @@ router.post('/update', function(req,res) {
 });
 
 
-router.post('/update', function(req, res) {
-  const text = 'UPDATE users SET scientificname = '
-})
-
 
 
 

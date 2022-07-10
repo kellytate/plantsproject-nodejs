@@ -27,8 +27,17 @@ block content
                     td= plant.datetowater 
               td
               td 
+              tr
               form(action="/update", method="POST")
-                button(type="submit").btn.btn-primary Update
+                div.form-group
+                label(for='scientific name') Scientific Name:
+                input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
+                button.btn.btn-primary(type='submit') Submit
+
+
+
+              //- form(action="/update", method="POST")
+              //-   button(type="submit").btn.btn-primary Update
           else
 
             //- form(action="/seed", method="POST")
