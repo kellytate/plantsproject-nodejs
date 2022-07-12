@@ -6,44 +6,50 @@ block content
       if error
         .alert.alert-danger
       else
-        table.table.table-striped.table-bordered.table-hover
-          if plants
-            thead
-              tr
-                th id
-                th Scientific Name
-                th Common Name
-                th Nickname
-                th Date Watered
-                th Date To Water
-              tbody
-                for plant in plants
-                  tr
-                    td= plant.id
-                    td= plant.scientificname 
-                    td= plant.commonname 
-                    td= plant.nickname 
-                    td= plant.datelastwatered
-                    td= plant.datetowater 
-              td
+        div.thetable
+          table.table.table-striped.table-bordered.table-hover
+            if plants
+              thead
+                tr
+                  th id
+                  th Scientific Name
+                  th Common Name
+                  th Nickname
+                  th Date Watered
+                  th Date To Water
+                tbody
+                  for plant in plants
+                    tr
+                      td= plant.id
+                      td= plant.scientificname 
+                      td= plant.commonname 
+                      td= plant.nickname 
+                      td= plant.datelastwatered
+                      td= plant.datetowater 
+                td
+                td 
+                tr
+            else
+
+              //- form(action="/seed", method="POST")
+              //-     button(type="submit").btn.btn-primary Seed Data
+              //- br
+              //- br
+              tr 
               td 
-              tr
-              form(action="/update", method="POST")
-                div.form-group
-                label(for='scientific name') Scientific Name:
-                input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
-                button.btn.btn-primary(type='submit') Submit
+                | No plants found
+        div.theform
+          form(action="/update", method="POST")
+            div.form-group
+            label(for='scientific name') Scientific Name:
+            input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
+            label(for='id') id:
+            input#id.form-control(type='text', placeholder='id' name='id')
+            button.btn.btn-primary(type='submit') Submit
+              
 
 
 
               //- form(action="/update", method="POST")
               //-   button(type="submit").btn.btn-primary Update
-          else
-
-            //- form(action="/seed", method="POST")
-            //-     button(type="submit").btn.btn-primary Seed Data
-            //- br
-            //- br
-            tr 
-              td 
-                | No plants found
+      

@@ -36,4 +36,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+app.post('/', (req, res) => {
+  
+  console.log(req.body);
+  res.status(201).send('It worked');
+});
+
+// app.get('/:id', (req, res) => {
+//   console.log(request.params.id);
+//   res.send(200);
+// })
+
 module.exports = app;
