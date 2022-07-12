@@ -39,11 +39,13 @@ router.get('/', function(req, res) {
 
     /* Update table WORKS!!! */
     router.post('/update', function(req,res) {
-      const text = "UPDATE plants SET scientificname= $1::text WHERE id = $2::integer"
-      const newName = (req.body.scientificname).trim();
+      const text = "UPDATE plants SET scientificname= $1::text, commonname= $2::text WHERE id = $3::integer"
+      const scientificname = (req.body.scientificname).trim();
+      const commonname = (req.body.commonname).trim();
+
       const id = (req.body.id);
       
-      const values = [newName, id]
+      const values = [scientificname, commonname, id]
 
 
       // const newName = req.body.scientificname;

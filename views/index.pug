@@ -39,8 +39,11 @@ block content
               td 
                 | No plants found
         div.theform
+          br
           form(action="/update", method="POST")
             div.form-group
+            label(for='common name') Common Name:
+            input#commonname.form-control(type='text', placeholder='Common Name' name='commonname')
             label(for='scientific name') Scientific Name:
             input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
             label(for='id') id:
