@@ -5,10 +5,10 @@ handlers:
   script: auto
 
 env_variables:
-  SQL_USER:
-  SQL_PASSWORD:
-  SQL_DATABASE:
-  INSTANCE_CONNECTION_NAME:   #<PROJECT_ID>:<REGION>:<INSTANCE_NAME>
+  SQL_USER: postgres
+  SQL_PASSWORD: plants
+  SQL_DATABASE: plantsdb
+  INSTANCE_CONNECTION_NAME: plantsapp-356420:us-east1:plantsdb   
 
 beta_settings:
-  cloud_postgresql_instances:  ##<PROJECT_ID>:<REGION>:<INSTANCE_NAME>
+  cloud_postgresql_instances: plantsapp-356420:us-east1:plantsdb
