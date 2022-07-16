@@ -39,17 +39,19 @@ router.get('/', function(req, res) {
 
 /* Update table WORKS!!! */
 router.post('/update', function(req,res) {
-  const text = "UPDATE plants SET scientificname= $1::text, commonname= $2::text WHERE id = $3::integer"
+  let create = false;
+  
+  
+
+
   const scientificname = (req.body.scientificname).trim();
   const commonname = (req.body.commonname).trim();
-
   const id = (req.body.id);
+
+  const text = "UPDATE plants SET scientificname= $1::text, commonname= $2::text WHERE id = $3::integer"
   
   const values = [scientificname, commonname, id]
 
-
-  // const newName = req.body.scientificname;
-  // const id = req.body.id;
   pgconn.query(text, values, function(err,results) {
     if (err) {
       console.log(err);
@@ -78,7 +80,7 @@ router.post('/create', function(req,res) {
   pgconn.query(text, values, function(err,results) {
     if (err) {
       console.log(err);
-      res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+      res.render('index', { error: 'Create failure! '+err.stack, plants: null, title: 'Plant List' });
     }
     // redirect to the index page
     else {

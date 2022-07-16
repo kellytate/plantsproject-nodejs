@@ -37,6 +37,12 @@ block content
           br
           form(action="/update", method="POST")
             div.form-group
+            input#create.form-control(type='radio', name='create_radio', value='create')
+            label(for='create_button') Create New Plant
+
+            input#update.form-control(type='radio', name='update_radio', value='update')
+            label(for='update_button') Update Plant
+
             label(for='common name') Common Name:
             input#commonname.form-control(type='text', placeholder='Common Name' name='commonname')
             label(for='scientific name') Scientific Name:
@@ -50,7 +56,5 @@ block content
             label(for='datetowater') Date To Water:
             input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
             
-            button.btn.btn-primary(type='Submit') Update
+            button.btn.btn-primary(type='Submit') Submit
 
-          form(action="/create", method="POST")
-            button.btn.btn-primary(type='Submit') Create
