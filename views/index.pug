@@ -50,6 +50,7 @@ block content
             label(for='datetowater') Date To Water:
             input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
             
-            
-            
-            button.btn.btn-primary(type='submit') Submit
+            button.btn.btn-primary(type='update') Submit
+
+          form(action="/create", method="POST")
+            div.form-group
