@@ -12,6 +12,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(
+  "/css",
+  express.static(path.join(_dirname, "node_modules/bootstrap/dist/css"))
+)
+app.use(
+  "/js",
+  express.static(path.join(_dirname, "node_modules/bootstrap/dist/js"))
+)
+app.use("/js", express.static(path.join(_dirname, "node_modules/jquery/dist")))
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,10 +52,5 @@ app.post('/', (req, res) => {
   console.log(req.body);
   res.status(201).send('It worked');
 });
-
-// app.get('/:id', (req, res) => {
-//   console.log(request.params.id);
-//   res.send(200);
-// })
 
 module.exports = app;
