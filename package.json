@@ -6,6 +6,7 @@
     "start": "if [[ $NODE_ENV == 'production' ]]; then node ./bin/www; else nodemon ./bin/www; fi"
   },
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "connect-flash": "0.1.1",
     "cookie-parser": "1.4.5",
     "debug": "4.3.2",
@@ -13,6 +14,7 @@
     "express": "4.17",
     "express-validator": "^6.14.2",
     "http-errors": "1.8.0",
+    "jquery": "^3.6.0",
     "morgan": "1.10.0",
     "pg": "8.6.0",
     "pg-format": "^1.0.4",
