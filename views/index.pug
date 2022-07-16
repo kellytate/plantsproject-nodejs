@@ -30,11 +30,6 @@ block content
                 td 
                 tr
             else
-
-              //- form(action="/seed", method="POST")
-              //-     button(type="submit").btn.btn-primary Seed Data
-              //- br
-              //- br
               tr 
               td 
                 | No plants found
@@ -48,11 +43,12 @@ block content
             input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
             label(for='id') id:
             input#id.form-control(type='text', placeholder='id' name='id')
+            label(for='nickname') Nickname:
+            input#id.form-control(type='text', placeholder='Nickname' name='nickname')
+            label(for='datelastwatered') Date Watered:
+            input#id.form-control(type='date', placeholder='Date Watered' name='datelastwatered')
+            label(for='datetowater') Date To Water:
+            input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
+            
+            
             button.btn.btn-primary(type='submit') Submit
-              
-
-
-
-              //- form(action="/update", method="POST")
-              //-   button(type="submit").btn.btn-primary Update
-      
