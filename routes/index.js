@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { pgconn } = require('../db/config');
-// const { body } = require('express-validator');
-
 
 
 router.get('/', function(req, res) {
@@ -39,59 +37,43 @@ router.get('/', function(req, res) {
 
 /* Update table WORKS!!! */
 router.post('/update', function(req,res) {
-  let create = false;
-  
-  
-
-
-  const scientificname = (req.body.scientificname).trim();
-  const commonname = (req.body.commonname).trim();
-  const id = (req.body.id);
-
-  const text = "UPDATE plants SET scientificname= $1::text, commonname= $2::text WHERE id = $3::integer"
-  
-  const values = [scientificname, commonname, id]
-
-  pgconn.query(text, values, function(err,results) {
-    if (err) {
-      console.log(err);
-      res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
-    }
-    // redirect to the index page
-    else {
-      res.redirect('/');
-    }
-  });
-});
-
-/* Create entry */
-router.post('/create', function(req,res) {
-  
+  // let exists = false;
   const commonname = (req.body.commonname).trim();
   const scientificname = (req.body.scientificname).trim();
   const nickname = (req.body.nickname).trim();
   const datelastwatered = (req.body.datelastwatered);
   const datetowater = (req.body.datetowater);
 
-  const text = "INSERT INTO plants (commonName, scientificName, nickName, dateLastWatered, dateToWater) VALUES($1::text, $2::text, $3::text, $4::date, $5::date)"
-  const values = [commonname, scientificname, nickname, datelastwatered, datetowater]
-
-
+  let text = "SELECT EXISTS (SELECT FROM plants WHERE nickname = $1::text)"
+  let values = [nickname]
   pgconn.query(text, values, function(err,results) {
     if (err) {
       console.log(err);
-      res.render('index', { error: 'Create failure! '+err.stack, plants: null, title: 'Plant List' });
+      res.render('index', { error: 'Database connection failure! '+err.stack, plants: null, title: 'Plant List' });
     }
-    // redirect to the index page
+
+    // If nickname does not exist in plants, create new plant.
+    else if(results.rows[0].exists == false) {
+      text = "INSERT INTO plants (commonName, scientificName, nickName, dateLastWatered, dateToWater) VALUES($1::text, $2::text, $3::text, $4::date, $5::date)"
+      values = [commonname, scientificname, nickname, datelastwatered, datetowater]
+    }
+
     else {
-      res.redirect('/');
+      text = "UPDATE plants SET commonname = $1::text, scientificname = $2::text, datelastwatered = $3::date, datetowater = $4::date WHERE nickname = $5::text"
+      values = [commonname, scientificname, datelastwatered, datetowater, nickname]
     }
+
+      pgconn.query(text, values, function(err,results) {
+        if (err) {
+          console.log(err);
+          res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+        }
+        // redirect to the index page
+        else {
+          res.redirect('/');
+        }
+      });
+    });
   });
-});
-
-
-
-
-
-
+  
 module.exports = router;
