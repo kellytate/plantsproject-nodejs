@@ -54,8 +54,8 @@ router.post('/update', function(req,res) {
 
     // If nickname does not exist in plants, create new plant.
     else if(results.rows[0].exists == false) {
-      text = "INSERT INTO plants (commonName, scientificName, nickName, dateLastWatered, dateToWater) VALUES($1::text, $2::text, $3::text, $4::date, $5::date)"
-      values = [commonname, scientificname, nickname, datelastwatered, datetowater]
+      text = "INSERT INTO plants (nickname, commonname, scientificname, dateLastWatered, dateToWater) VALUES($1::text, $2::text, $3::text, $4::date, $5::date)"
+      values = [nickname, commonname, scientificname, datelastwatered, datetowater]
     }
 
     else {
