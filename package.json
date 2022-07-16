@@ -6,6 +6,7 @@
     "start": "if [[ $NODE_ENV == 'production' ]]; then node ./bin/www; else nodemon ./bin/www; fi"
   },
   "dependencies": {
+    "@google-cloud/storage": "^6.2.3",
     "connect-flash": "0.1.1",
     "cookie-parser": "1.4.5",
     "debug": "4.3.2",
