@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  .container
+    .content
+      if error
+        .alert.alert-danger
+      else
+        div.thetable
+          table.table.table-striped.table-bordered.table-hover
+            if plants
+              thead
+                tr
+                  th id
+                  th Scientific Name
+                  th Common Name
+                  th Nickname
+                  th Date Watered
+                  th Date To Water
+                tbody
+                  for plant in plants
+                    tr
+                      td= plant.id
+                      td= plant.scientificname 
+                      td= plant.commonname 
+                      td= plant.nickname 
+                      td= plant.datelastwatered
+                      td= plant.datetowater 
+                td
+                td 
+                tr
+            else
+              tr 
+              td 
+                | No plants found
+        div.theform
+          br
+          form(action="/update", method="POST")
+            div.form-group
+            label(for='common name') Common Name:
+            input#commonname.form-control(type='text', placeholder='Common Name' name='commonname')
+            label(for='scientific name') Scientific Name:
+            input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
+            label(for='id') id:
+            input#id.form-control(type='text', placeholder='id' name='id')
+            label(for='nickname') Nickname:
+            input#id.form-control(type='text', placeholder='Nickname' name='nickname')
+            label(for='datelastwatered') Date Watered:
+            input#id.form-control(type='date', placeholder='Date Watered' name='datelastwatered')
+            label(for='datetowater') Date To Water:
+            input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
+            
+            
+            
+            button.btn.btn-primary(type='submit') Submit
