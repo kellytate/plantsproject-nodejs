@@ -1,8 +1,8 @@
 runtime: nodejs16
 
 handlers:
-  url: /.*
-  script: auto
+- url: /.*
+  script: npm start
 
 env_variables:
   DB_USER: postgres
