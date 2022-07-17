@@ -6,6 +6,10 @@ block content
       if error
         .alert.alert-danger
       else
+        br
+        center
+          h1 Plants!
+          br
         div.thetable
           table.table.table-striped.table-bordered.table-hover
             if plants
@@ -33,33 +37,31 @@ block content
               tr 
               td 
                 | No plants found
+        
         div.theform
           br
+          p Create or Update Plant:
+        
           form(action="/update", method="POST")
             div.form-group
-            //- label(for='create_button') Create or Update Plant?
-            //- input#create_or_update.form-control(type='radio', name='create_radio', value='true')
-            //- label(for='create_radio') Create Plant
-            //- br
-            //- input#update.form-control(type='radio', name='create_radio', value='false')
-            //- label(for='create_radio') Update Plant
-            //- br
-            //- br
 
-
-            label(for='nickname') Nickname:
+            //- label(for='nickname') Nickname:
             input#id.form-control(type='text', placeholder='Nickname' name='nickname')
-            label(for='common name') Common Name:
+            br
+            //- label(for='common name') Common Name:
             input#commonname.form-control(type='text', placeholder='Common Name' name='commonname')
-            label(for='scientific name') Scientific Name:
+            br
+            //- label(for='scientific name') Scientific Name:
             input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
-            
-            label(for='datelastwatered') Date Watered:
+            br
+            //- label(for='datelastwatered') Date Watered:
             input#id.form-control(type='date', placeholder='Date Watered' name='datelastwatered')
-            label(for='datetowater') Date To Water:
+            br
+            //- label(for='datetowater') Date To Water:
             input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
-            label(for='id') id:
-            input#id.form-control(type='text', placeholder='id' name='id')
-            
+            br
+            label(for='id') Update by Plant ID:
+            input#id.form-control(type='text', placeholder='ID' name='id')
+            br
             button.btn.btn-primary(type='Submit') Submit
 
