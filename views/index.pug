@@ -12,7 +12,7 @@ block content
           br
           .flex-container(style='display:flex')
             .flex-child.one(style='flex:1')     
-              div.theform(style='width:50%')
+              div.theform
                 br
                 p Create or Update Plant:
               
@@ -40,11 +40,11 @@ block content
                   button.btn.btn-primary(type='Submit') Submit
             .flex-child.two
               div.thetable
-                table.table.table-striped.table-bordered.table-hover
+                table.table
                   if plants
                     thead
                       tr
-                        th id
+                        th ID
                         th Nickname
                         th Common Name
                         th Scientific Name
