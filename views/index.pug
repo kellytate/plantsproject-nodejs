@@ -5,6 +5,7 @@ block content
     .content
       if error
         .alert.alert-danger
+        h1 Error!
       else
         br
         center
@@ -20,19 +21,19 @@ block content
                   div.form-group
 
                   //- label(for='nickname') Nickname:
-                  input#id.form-control(type='text', length='100', placeholder='Nickname' name='nickname')
+                  input#id.form-control(type='text', length='100', placeholder='nickname' name='nickname')
                   br
                   //- label(for='common name') Common Name:
-                  input#commonname.form-control(type='text', placeholder='Common Name' name='commonname')
+                  input#commonname.form-control(type='text', placeholder='common name' name='commonname')
                   br
                   //- label(for='scientific name') Scientific Name:
-                  input#scientificname.form-control(type='text', placeholder='Scientific Name' name='scientificname')
+                  input#scientificname.form-control(type='text', placeholder='scientific name' name='scientificname')
                   br
                   //- label(for='datelastwatered') Date Watered:
-                  input#id.form-control(type='date', placeholder='Date Watered' name='datelastwatered')
+                  input#id.form-control(type='date', placeholder='date watered' name='datelastwatered')
                   br
                   //- label(for='datetowater') Date To Water:
-                  input#id.form-control(type='date', placeholder='Date To Water' name='datetowater')
+                  input#id.form-control(type='date', placeholder='date to water' name='datetowater')
                   br
                   label(for='id') Update by Plant ID:
                   input#id.form-control(type='text', placeholder='ID' name='id')
