@@ -2,38 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { pgconn } = require('../db/config');
 
-// function queryBuilder(req) {
-//   const commonname = (req.body.commonname).trim();
-//   const scientificname = (req.body.scientificname).trim();
-//   const nickname = (req.body.nickname).trim();
-//   const datelastwatered = (req.body.datelastwatered);
-//   const datetowater = (req.body.datetowater);
-//   const id = (req.body.id);
-  
-//   let index = 0;
-
-//   let items = []
-//   let values = []
-//   let text = ''
-
-//   items.append(commonname, scientificname, nickname, datelastwatered, datetowater, id);
-
-//   for (item in items) {
-//     if (item.length > 0)
-//       values.append(item);
-//   }
-  
-
-//   text = "INSERT INTO plants ("
-//   str = "INSERT INTO plants (nickname, commonname, scientificname, dateLastWatered, dateToWater) VALUES($1::text, $2::text, $3::text, $4::date, $5::date)"
-
-
-//   return 
-
-
-// }
-
-
+let text = '';
+let values = [];
+let commonname;
+let scientificname;
+let nickname;
+let datelastwatered;
+let datetowater;
+let id;
 
 router.get('/', function(req, res) {
   // Check if 'plants' table exists
@@ -67,17 +43,16 @@ router.get('/', function(req, res) {
 });
 
 
-/* Update table WORKS!!! */
+/* Update table */
 router.post('/update', function(req,res) {
-  // let exists = false;
-  const commonname = (req.body.commonname).trim();
-  const scientificname = (req.body.scientificname).trim();
-  const nickname = (req.body.nickname).trim();
-  const datelastwatered = (req.body.datelastwatered);
-  const datetowater = (req.body.datetowater);
+  nickname = (req.body.nickname).trim();
+  commonname = (req.body.commonname).trim();
+  scientificname = (req.body.scientificname).trim();
+  datelastwatered = (req.body.datelastwatered);
+  datetowater = (req.body.datetowater);
 
-  let text = "SELECT EXISTS (SELECT FROM plants WHERE nickname = $1::text)"
-  let values = [nickname.toLowerCase()];
+  text = "SELECT EXISTS (SELECT FROM plants WHERE nickname = $1::text)"
+  values = [nickname.toLowerCase()];
   pgconn.query(text, values, function(err,results) {
     if (err) {
       console.log(err);
@@ -86,29 +61,136 @@ router.post('/update', function(req,res) {
 
     // If nickname does not exist in plants, create new plant.
     else if(results.rows[0].exists == false) {
-      values = [nickname, commonname, scientificname, datelastwatered, datetowater]
-      text = "INSERT INTO plants (nickname, commonname, scientificname, dateLastWatered, dateToWater) VALUES($1, $2, $3, $4, $5)"
+      task = 'create';
+      queryBuilder(req, task);
+      // values = [nickname, commonname, scientificname, datelastwatered, datetowater]
+      // text = "INSERT INTO plants (nickname, commonname, scientificname, dateLastWatered, dateToWater) VALUES($1, $2, $3, $4, $5)"
     }
 
     else {
-      values = [commonname, scientificname, datelastwatered, datetowater, nickname]
-      text = "UPDATE plants SET commonname = $1::text, scientificname = $2::text, datelastwatered = $3::date, datetowater = $4::date WHERE nickname = $5::text"
-    }
+      task = 'update';
+      queryBuilder(req, task);
 
-      pgconn.query(text, values, function(err,results) {
-        if (err) {
-          console.log(err);
-          res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
-        }
-        // redirect to the index page
-        else {
-          res.redirect('/');
-        }
-      });
+      // values = [commonname, scientificname, datelastwatered, datetowater, nickname]
+      // text = "UPDATE plants SET commonname = $1::text, scientificname = $2::text, datelastwatered = $3::date, datetowater = $4::date WHERE nickname = $5::text"
+    }
+    
+    pgconn.query(text, values, function(err,results) {
+      if (err) {
+        console.log(err);
+        res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+      }
+      // redirect to the index page
+      else {
+        res.redirect('/');
+      }
     });
   });
+});
+
+router.post('/delete', function(req,res) {    
+  id = (req.body.id);
   
+  text = 'DELETE FROM plants WHERE id = $1'
+  values = [id];
 
+  pgconn.query(text, values, function(err,results) {
+    if (err) {
+      console.log(err);
+      res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+    }
+    // redirect to the index page
+    else {
+      res.redirect('/');
+    }
+  });
+});
 
+router.post('/reset', function(req,res) {
+  
+  text = 'DELETE FROM plants';
+  values = []
+
+  pgconn.query(text, values, function(err,results) {
+    if (err) {
+      console.log(err);
+      res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+    }
+    // redirect to the index page
+    else {
+      res.redirect('/');
+    }
+  });
+});
+
+function queryBuilder(req, task) {
+  commonname = (req.body.commonname).trim();
+  scientificname = (req.body.scientificname).trim();
+  nickname = (req.body.nickname).trim();
+  datelastwatered = (req.body.datelastwatered);
+  datetowater = (req.body.datetowater);
+  id = (req.body.id);
+  
+  const nickname_field = 'nickname';
+  const commonname_field = 'commonname';
+  const scientificname_field = 'scientificname';
+  const datelastwatered_field = 'datelastwatered';
+  const datetowater_field = 'datetowater';
+
+  let items = [];
+  let fields = [nickname_field, commonname_field, scientificname_field, datelastwatered_field, datetowater_field];
+  values = [];
+  text = '';
+
+  items.push(nickname, commonname, scientificname, datelastwatered, datetowater);
+
+  // Check for non-empty input. Push items with input to values array.
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].length > 0 && items[i].length <= 30)
+      values.push(items[i]);
+  }
+
+  let str = '';
+  let str2 = '';
+
+  // Create new plant.
+  if(task === 'create') {
+    
+    // Build string of field names to insert into query
+    for(let i = 0; i < items.length; i++) {
+      if (values.includes(items[i])) {
+        str += fields[i] + ',';
+      }
+    }
+    str = str.slice(0, -1);
+
+    // Build string of placeholders for query.
+    for (let i = 0; i < values.length; i++) {
+      str2 += '$' + (i + 1) + ',';
+    }
+    str2 = str2.slice(0, -1);
+
+    // Build text for query
+    text = 'INSERT INTO plants (' + str + ') VALUES (' + str2 + ')';
+  }
+  else if (task === 'update') {
+
+    // Build string of field names to insert into query
+    let count = 0;
+    for(let i = 1; i < items.length; i++) {
+      if (values.includes(items[i])) {
+        count += 1;
+        str += fields[i] + '= $' + count + ',';
+      }
+    }
+    str = str.slice(0, -1);
+    str2 = fields[0] + '= $' + values.length;
+
+    values.push(values[0]);
+    values.shift(values[0]);
+    text = 'UPDATE plants SET ' + str + ' WHERE ' + str2;
+  }
+
+}
 
 module.exports = router;

@@ -15,30 +15,51 @@ block content
             .flex-child.one(style='flex:1')     
               div.theform
                 br
-                p Create or Update Plant:
+                p create or update plant:
               
                 form(action="/update", method="POST", style='width:300px')
                   div.form-group
 
                   //- label(for='nickname') Nickname:
-                  input#id.form-control(type='text', length='100', placeholder='nickname' name='nickname')
+                  input#id.form-control(type='text', length='100', placeholder='nickname', name='nickname', required, style='background-color: transparent; border: none')
                   br
                   //- label(for='common name') Common Name:
-                  input#commonname.form-control(type='text', placeholder='common name' name='commonname')
+                  input#commonname.form-control(type='text', placeholder='common name' name='commonname', style='background-color: transparent; border: none')
                   br
                   //- label(for='scientific name') Scientific Name:
-                  input#scientificname.form-control(type='text', placeholder='scientific name' name='scientificname')
+                  input#scientificname.form-control(type='text', placeholder='scientific name', name='scientificname', style='background-color: transparent; border: none')
                   br
-                  //- label(for='datelastwatered') Date Watered:
-                  input#id.form-control(type='date', placeholder='date watered' name='datelastwatered')
+                  label(for='datelastwatered') date watered:
+                  input#id.form-control(type='date', placeholder='date watered', name='datelastwatered', style='background-color: transparent; border: none')
                   br
-                  //- label(for='datetowater') Date To Water:
-                  input#id.form-control(type='date', placeholder='date to water' name='datetowater')
+                  label(for='datetowater') date to water:
+                  input#id.form-control(type='date', placeholder='date to water', name='datetowater', style='background-color: transparent; border: none')
                   br
-                  label(for='id') Update by Plant ID:
-                  input#id.form-control(type='text', placeholder='ID' name='id')
+                  button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') submit
                   br
-                  button.btn.btn-primary(type='Submit') Submit
+                  br
+                  br
+
+                form(action="/delete", method="POST")
+                  label(for='id') delete entry by plant ID:
+                  div.form-group
+                    div(class='d-flex justify-content-center')
+                      //- div(class='p-2')
+                      //-   label(for='id') Delete by Plant ID:
+                      div(class='p-2')
+                        input#id.form-control(type='text', placeholder='ID', name='id', style='width: 100px')
+                      div(class='p-2')
+                        button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') delete                  
+                br
+                br
+              
+                form(action="/reset", method="POST")
+                  div.form-group
+                    button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') clear all entries
+
+
+
+
             .flex-child.two
               div.thetable
                 table.table
@@ -67,4 +88,5 @@ block content
                     tr 
                     td 
                       | No plants found
+              
             
