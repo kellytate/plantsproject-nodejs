@@ -109,19 +109,31 @@ router.post('/delete', function(req,res) {
 router.post('/reset', function(req,res) {
   
   text = 'DELETE FROM plants';
-  values = []
 
-  pgconn.query(text, values, function(err,results) {
+  pgconn.query(text, function(err,results) {
     if (err) {
       console.log(err);
       res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
     }
-    // redirect to the index page
     else {
-      res.redirect('/');
+      // Reset serial id.
+      text = "SELECT setval(pg_get_serial_sequence('plants', 'id'), COALESCE(max(id) + 1, 1), false)FROM plants";
+      pgconn.query(text, function(err,results) {
+        if (err) {
+          console.log(err);
+          res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
+        }
+        // redirect to the index page
+        else {
+          res.redirect('/');
+        }
+      });
     }
   });
 });
+
+
+
 
 function queryBuilder(req, task) {
   commonname = (req.body.commonname).trim();
