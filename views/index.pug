@@ -21,41 +21,41 @@ block content
                   div.form-group
 
                   //- label(for='nickname') Nickname:
-                  input#id.form-control(type='text', length='100', placeholder='nickname', name='nickname', required, style='background-color: transparent; border: none')
+                  input#nickname.form-control(type='text', length='100', placeholder='nickname', name='nickname', required, style='background-color: transparent;')
                   br
                   //- label(for='common name') Common Name:
-                  input#commonname.form-control(type='text', placeholder='common name' name='commonname', style='background-color: transparent; border: none')
+                  input#commonname.form-control(type='text', placeholder='common name' name='commonname', style='background-color: transparent;')
                   br
                   //- label(for='scientific name') Scientific Name:
-                  input#scientificname.form-control(type='text', placeholder='scientific name', name='scientificname', style='background-color: transparent; border: none')
+                  input#scientificname.form-control(type='text', placeholder='scientific name', name='scientificname', style='background-color: transparent;')
                   br
                   label(for='datelastwatered') date watered:
-                  input#id.form-control(type='date', placeholder='date watered', name='datelastwatered', style='background-color: transparent; border: none')
+                  input#datelastwatered.form-control(type='date', placeholder='date watered', name='datelastwatered', style='background-color: transparent;')
                   br
                   label(for='datetowater') date to water:
-                  input#id.form-control(type='date', placeholder='date to water', name='datetowater', style='background-color: transparent; border: none')
+                  input#datetowater.form-control(type='date', placeholder='date to water', name='datetowater', style='background-color: transparent;')
                   br
                   button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') submit
                   br
                   br
                   br
 
-                form(action="/delete", method="POST")
-                  label(for='id') delete entry by plant ID:
-                  div.form-group
-                    div(class='d-flex justify-content-center')
-                      //- div(class='p-2')
-                      //-   label(for='id') Delete by Plant ID:
-                      div(class='p-2')
-                        input#id.form-control(type='text', placeholder='ID', name='id', style='width: 100px')
-                      div(class='p-2')
-                        button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') delete                  
-                br
-                br
+                //- form(action="/delete", method="POST")
+                //-   label(for='id') delete entry by plant ID:
+                //-   div.form-group
+                //-     div(class='d-flex justify-content-center')
+                //-       //- div(class='p-2')
+                //-       //-   label(for='id') Delete by Plant ID:
+                //-       div(class='p-2')
+                //-         input#id.form-control(type='text', placeholder='ID', name='id', style='width: 100px')
+                //-       div(class='p-2')
+                //-         button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') delete                  
+                //- br
+                //- br
               
-                form(action="/reset", method="POST")
-                  div.form-group
-                    button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') clear all entries
+                //- form(action="/reset", method="POST")
+                //-   div.form-group
+                //-     button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') clear all entries
 
 
 
@@ -88,5 +88,21 @@ block content
                     tr 
                     td 
                       | No plants found
+                form(action="/delete", method="POST")
+                  label(for='id') delete entry by plant ID:
+                  div.form-group
+                    div(class='d-flex justify-content-center')
+                      //- div(class='p-2')
+                      //-   label(for='id') Delete by Plant ID:
+                      div(class='p-2')
+                        input#id.form-control(type='number', placeholder='ID', name='id', style='width: 100px')
+                      div(class='p-2')
+                        button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') delete                  
+                br
+                br
+              
+                form(action="/reset", method="POST")
+                  div.form-group
+                    button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none; width: 180px') clear all entries
               
             

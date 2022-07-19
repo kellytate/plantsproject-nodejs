@@ -200,7 +200,14 @@ function queryBuilder(req, task) {
 
     values.push(values[0]);
     values.shift(values[0]);
+    if (values.length === 1) {
+      text = 'SELECT * FROM plants';
+      values = [];
+    }
+    else {
     text = 'UPDATE plants SET ' + str + ' WHERE ' + str2;
+
+    }
   }
 
 }
