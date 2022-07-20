@@ -12,8 +12,8 @@ let datetowater;
 let id;
 
 router.get('/', function(req, res) {
-  // Check if 'plants' table exists
-    
+  
+  // Check if 'plants' table exists.  
     pgconn.query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'plants')", function(err,results) {
     if (err) {
       console.log(err);
@@ -51,6 +51,7 @@ router.post('/update', function(req,res) {
   datelastwatered = (req.body.datelastwatered);
   datetowater = (req.body.datetowater);
 
+  
   text = "SELECT EXISTS (SELECT FROM plants WHERE LOWER(nickname) = $1::text)"
 
   values = [nickname.toLowerCase()];
@@ -64,16 +65,12 @@ router.post('/update', function(req,res) {
     else if(results.rows[0].exists == false) {
       task = 'create';
       queryBuilder(req, task);
-      // values = [nickname, commonname, scientificname, datelastwatered, datetowater]
-      // text = "INSERT INTO plants (nickname, commonname, scientificname, dateLastWatered, dateToWater) VALUES($1, $2, $3, $4, $5)"
     }
 
     else {
       task = 'update';
+      // values = [nickname];
       queryBuilder(req, task);
-
-      // values = [commonname, scientificname, datelastwatered, datetowater, nickname]
-      // text = "UPDATE plants SET commonname = $1::text, scientificname = $2::text, datelastwatered = $3::date, datetowater = $4::date WHERE nickname = $5::text"
     }
     
     pgconn.query(text, values, function(err,results) {
@@ -124,7 +121,7 @@ router.post('/reset', function(req,res) {
           console.log(err);
           res.render('index', { error: 'Update failure! '+err.stack, plants: null, title: 'Plant List' });
         }
-        // redirect to the index page
+        // Redirect to index.
         else {
           res.redirect('/');
         }
@@ -133,9 +130,7 @@ router.post('/reset', function(req,res) {
   });
 });
 
-
-
-
+// Void function to build query.
 function queryBuilder(req, task) {
   commonname = (req.body.commonname).trim();
   scientificname = (req.body.scientificname).trim();
@@ -155,6 +150,7 @@ function queryBuilder(req, task) {
   values = [];
   text = '';
 
+  // Load input values into items array.
   items.push(nickname, commonname, scientificname, datelastwatered, datetowater);
 
   // Check for non-empty input. Push items with input to values array.
@@ -169,7 +165,7 @@ function queryBuilder(req, task) {
   // Create new plant.
   if(task === 'create') {
     
-    // Build string of field names to insert into query
+    // Build string of field names to insert into query.
     for(let i = 0; i < items.length; i++) {
       if (values.includes(items[i])) {
         str += fields[i] + ',';
@@ -183,12 +179,12 @@ function queryBuilder(req, task) {
     }
     str2 = str2.slice(0, -1);
 
-    // Build text for query
+    // Build text for query.
     text = 'INSERT INTO plants (' + str + ') VALUES (' + str2 + ')';
   }
   else if (task === 'update') {
 
-    // Build string of field names to insert into query
+    // Build string of field names to insert into query.
     let count = 0;
     for(let i = 1; i < items.length; i++) {
       if (values.includes(items[i])) {
@@ -197,20 +193,22 @@ function queryBuilder(req, task) {
       }
     }
     str = str.slice(0, -1);
-    str2 = fields[0] + '= $' + values.length;
+    str2 = 'LOWER(' + fields[0] +') = $' + values.length;
 
-    values.push(values[0]);
+    // Move lowercase nickname to end of values.
+    values.push(values[0].toLowerCase());
     values.shift(values[0]);
+
+    // If no input to update, display table. Else, update table values.
     if (values.length === 1) {
       text = 'SELECT * FROM plants';
       values = [];
     }
+
     else {
     text = 'UPDATE plants SET ' + str + ' WHERE ' + str2;
-
     }
   }
-
 }
 
 module.exports = router;
