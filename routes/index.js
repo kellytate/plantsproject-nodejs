@@ -51,7 +51,8 @@ router.post('/update', function(req,res) {
   datelastwatered = (req.body.datelastwatered);
   datetowater = (req.body.datetowater);
 
-  text = "SELECT EXISTS (SELECT FROM plants WHERE nickname = $1::text)"
+  text = "SELECT EXISTS (SELECT FROM plants WHERE LOWER(nickname) = $1::text)"
+
   values = [nickname.toLowerCase()];
   pgconn.query(text, values, function(err,results) {
     if (err) {
