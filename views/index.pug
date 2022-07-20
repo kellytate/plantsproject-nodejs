@@ -11,13 +11,13 @@ block content
         center
           h1 Plants!
           br
-          .flex-container(style='display:flex')
-            .flex-child.one(style='flex:1')     
+          .flex-container(style='display: flex')
+            .flex-child.one(style='flex: 1')
               div.theform
                 br
                 p create or update plant:
               
-                form(action="/update", method="POST", style='width:300px')
+                form(action='/update', method='POST', style='width:300px')
                   div.form-group
 
                   //- label(for='nickname') Nickname:
@@ -39,28 +39,7 @@ block content
                   br
                   br
                   br
-
-                //- form(action="/delete", method="POST")
-                //-   label(for='id') delete entry by plant ID:
-                //-   div.form-group
-                //-     div(class='d-flex justify-content-center')
-                //-       //- div(class='p-2')
-                //-       //-   label(for='id') Delete by Plant ID:
-                //-       div(class='p-2')
-                //-         input#id.form-control(type='text', placeholder='ID', name='id', style='width: 100px')
-                //-       div(class='p-2')
-                //-         button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') delete                  
-                //- br
-                //- br
-              
-                //- form(action="/reset", method="POST")
-                //-   div.form-group
-                //-     button.btn.btn-primary(type='Submit', style='background-color: #1e1e1e; border: none') clear all entries
-
-
-
-
-            .flex-child.two
+            .flex-child.two(style='flex:2')
               div.thetable
                 table.table
                   if plants
